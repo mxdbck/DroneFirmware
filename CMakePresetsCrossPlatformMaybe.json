@@ -1,0 +1,79 @@
+{
+  "version": 3,
+  "configurePresets": [
+    {
+      "name": "base-pico-env",
+      "hidden": true, // Hide this base preset as it's not meant to be selected directly
+      "environment": {
+        // Paths to SDKs and toolchain ROOT, will be overridden by system-specific presets
+        "PICO_SDK_PATH": "",
+        "FREERTOS_KERNEL_PATH": "",
+        "PICO_TOOLCHAIN_PATH": "",
+        "PATH": "$ENV{PATH}" // Inherit and potentially extend
+      }
+    },
+    {
+      "name": "macos-pico-debug",
+      "displayName": "macOS Pico (Debug)",
+      "inherits": "base-pico-env", // Inherit common environment structure
+      "system": "darwin", // Applies only on macOS
+      "binaryDir": "${sourceDir}/build/macos-debug",
+      "generator": "Ninja",
+      "environment": {
+        // Override paths for macOS
+        "PICO_SDK_PATH": "/Users/maximedeboeck/Dev/pico/pico-sdk",
+        "FREERTOS_KERNEL_PATH": "/Users/maximedeboeck/Dev/pico/FreeRTOS-Kernel/FreeRTOS-Kernel",
+        "PICO_TOOLCHAIN_PATH": "/Applications/ArmGNUToolchain/14.3.rel1/arm-none-eabi",
+        "PATH": "$ENV{PATH}:/usr/bin:/bin:/usr/local/bin:/opt/homebrew/bin" // Ensure common macOS binaries are found
+      },
+      "cacheVariables": {
+        "PICO_BOARD": "seeed_xiao_rp2350",
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_MAKE_PROGRAM": "/opt/homebrew/bin/ninja" // Absolute path to Ninja on macOS Homebrew
+      }
+    },
+    {
+      "name": "linux-pico-debug",
+      "displayName": "Linux Pico (Debug)",
+      "inherits": "base-pico-env",
+      "system": "linux", // Applies only on Linux
+      "binaryDir": "${sourceDir}/build/linux-debug",
+      "generator": "Ninja",
+      "environment": {
+        // Override paths for Linux (example paths)
+        "PICO_SDK_PATH": "/home/youruser/Developer/pico/pico-sdk",
+        "FREERTOS_KERNEL_PATH": "/home/youruser/Developer/pico/FreeRTOS-Kernel/FreeRTOS-Kernel",
+        "PICO_TOOLCHAIN_PATH": "/opt/arm-gcc/arm-none-eabi-14.3.1", // Example Linux path
+        "PATH": "$ENV{PATH}:/usr/bin:/bin:/usr/local/bin" // Ensure common Linux binaries are found
+      },
+      "cacheVariables": {
+        "PICO_BOARD": "seeed_xiao_rp2350",
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_MAKE_PROGRAM": "ninja" // On Linux, 'ninja' is often just in PATH
+      }
+    },
+    {
+      "name": "macos-pico-release",
+      "displayName": "macOS Pico (Release)",
+      "inherits": "macos-pico-debug", // Inherit all from debug, just change build type
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "linux-pico-release",
+      "displayName": "Linux Pico (Release)",
+      "inherits": "linux-pico-debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    }
+  ],
+  "buildPresets": [
+    { "name": "macos-pico-debug", "configurePreset": "macos-pico-debug" },
+    { "name": "linux-pico-debug", "configurePreset": "linux-pico-debug" },
+    { "name": "macos-pico-release", "configurePreset": "macos-pico-release" },
+    { "name": "linux-pico-release", "configurePreset": "linux-pico-release" }
+  ],
+  "testPresets": []
+}
