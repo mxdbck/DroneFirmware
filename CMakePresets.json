@@ -2,7 +2,7 @@
   "version": 3,
   "configurePresets": [
     {
-      "name": "drone-firmware-debug",
+      "name": "drone-firmware-debug-macos",
       "displayName": "Drone Firmware (Debug)",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/debug",
@@ -14,8 +14,8 @@
   ],
   "buildPresets": [
     {
-      "name": "drone-firmware-debug",
-      "configurePreset": "drone-firmware-debug"
+      "name": "drone-firmware-debug-macos",
+      "configurePreset": "drone-firmware-debug-macos"
     }
   ]
 }
