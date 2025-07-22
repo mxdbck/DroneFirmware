@@ -7,19 +7,8 @@
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/debug",
       "environment": {
-        "PICO_SDK_PATH": "~/Dev/pico/pico-sdk",
-        "FREERTOS_KERNEL_PATH": "~/Dev/pico/FreeRTOS-Kernel/FreeRTOS-Kernel",
         "PICO_TOOLCHAIN_PATH": "/Applications/ArmGNUToolchain/14.3.rel1/arm-none-eabi",
         "PATH": "$ENV{PATH}:/usr/bin:/bin:/usr/local/bin:/opt/homebrew/bin"
-      },
-      "cacheVariables": {
-        "PICO_BOARD": "seeed_xiao_rp2350",
-        "CMAKE_BUILD_TYPE": "Debug",
-        "CMAKE_MAKE_PROGRAM": "/opt/homebrew/bin/ninja",
-
-        "CMAKE_C_COMPILER": "/Applications/ArmGNUToolchain/14.3.rel1/arm-none-eabi/bin/arm-none-eabi-gcc",
-        "CMAKE_CXX_COMPILER": "/Applications/ArmGNUToolchain/14.3.rel1/arm-none-eabi/bin/arm-none-eabi-g++",
-        "CMAKE_ASM_COMPILER": "/Applications/ArmGNUToolchain/14.3.rel1/arm-none-eabi/bin/arm-none-eabi-gcc"
       }
     }
   ],
